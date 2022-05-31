@@ -35,14 +35,16 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  res.send( searchPeopleById(req.params.id) );
+  const id = req.params.id;
+  const person = peopleList.find(p => p.id == id);
+  res.json(person)
 })
 
 router.post('/', (req, res) => {
   const person = req.body;
   person.id = peopleList.length + 1;
-  peopleList.push(person);
-  res.json(person);
+  { !person.name || !person.cpf ? res.status(400).send('You need to inform the name and cpf') 
+  :  peopleList.push(person), res.send(person) }
 })
 
 router.put('/:id', (req, res) => {

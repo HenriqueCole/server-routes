@@ -11,6 +11,14 @@ boletoList = [
     id_person: 2,
     status: "ok",
     person_name: "Henrique"
+  },
+  {
+    idBoleto: 2,
+    value: 120,
+    id_user: 3,
+    id_person: 1,
+    status: "ok",
+    person_name: "John"
   }
 ]
 
@@ -23,10 +31,6 @@ router.get('/:id', (req, res) => {
   const boleto = boletoList.find(p => p.id == id);
   res.send(boleto);
 })
-
-function getByPeopleId(id){
-  return boletoList.filter(p => p.id_person == id);
-}
 
 router.get('/person/:id', (req, res) => {
   const id = req.params.id;
@@ -55,7 +59,7 @@ router.put('/:id', (req, res) => {
   const boletos = req.body;
   const index = boletoList.findIndex(p => p.id == id);
   boletoList[index] = boletos;
-  res.json(boletos);
+  res.send(boletos);
 })
 
 

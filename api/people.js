@@ -18,8 +18,7 @@ const peopleList = [
     'id': 3,
     'name': 'Thiago',
     'cpf': '111.222.333-44',
-  },
-
+  }
 ];
 
 function searchPeople(){

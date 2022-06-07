@@ -5,7 +5,7 @@ const router = express.Router();
 
 boletoList = [
   {
-    idBoleto: 1,
+    id: 1,
     value: 20,
     id_user: 1,
     id_person: 2,
@@ -13,7 +13,7 @@ boletoList = [
     person_name: "Henrique"
   },
   {
-    idBoleto: 2,
+    id: 2,
     value: 120,
     id_user: 3,
     id_person: 1,
@@ -32,11 +32,11 @@ router.get('/:id', (req, res) => {
   res.send(boleto);
 })
 
-router.get('/person/:id', (req, res) => {
-  const id = req.params.id;
-  const boleto = boletoList.map(p => p.id_person == id);
-  res.send(boleto);
-})
+// router.get('/person/:id', (req, res) => {
+//   const id = req.params.id;
+//   const boleto = boletoList.map(p => p.id_person == id);
+//   res.send(boleto);
+// })
 
 router.post('/', (req, res) => {
   const boleto = req.body;

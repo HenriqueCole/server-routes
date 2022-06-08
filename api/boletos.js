@@ -32,11 +32,14 @@ router.get('/:id', (req, res) => {
   res.send(boleto);
 })
 
-// router.get('/person/:id', (req, res) => {
-//   const id = req.params.id;
-//   const boleto = boletoList.map(p => p.id_person == id);
-//   res.send(boleto);
-// })
+router.get('/person/:id', (req, res) => {
+  const id = req.params.id;
+  for (let i = 0; i < boletoList.length; i++) {
+    if (boletoList[i].id_person == id) {
+      res.send(boletoList[i]);
+    }
+  }
+})
 
 router.post('/', (req, res) => {
   const boleto = req.body;
@@ -51,7 +54,6 @@ router.post('/', (req, res) => {
     boletoList.push(boleto);
     res.send(boleto);
   }
-
 })
 
 router.put('/:id', (req, res) => {

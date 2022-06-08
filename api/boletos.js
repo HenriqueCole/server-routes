@@ -22,6 +22,10 @@ boletoList = [
   }
 ]
 
+function checkBoletos(id, type) {
+  return type == 1 ? boletoList.find(p => p.id_person == id) : boletoList.find(p => p.id_user == id);
+}
+
 router.get('/', (req, res) =>{
   res.json(boletoList);
 })
@@ -50,7 +54,7 @@ router.post('/', (req, res) => {
   } else if (boleto.value <= 0) {
     res.status(400).send('Value must be greater than 0');
   } else {
-    boleto.idBoleto = boletoList.length + 1;
+    boleto.id = boletoList.length + 1;
     boletoList.push(boleto);
     res.send(boleto);
   }
@@ -66,5 +70,6 @@ router.put('/:id', (req, res) => {
 
 
 module.exports = {
-  router
+  router,
+  checkBoletos
 }

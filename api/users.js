@@ -58,8 +58,12 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const index = usersList.findIndex(p => p.id == id);
-  usersList.splice(index, 1);
-  res.json(usersList);
+  if (checkBoletos(id, 2)) {
+    res.status(400).send('You can not delete this user because he has a boleto');
+  } else {
+    usersList.splice(index, 1);
+    res.json(usersList);
+  }
 })
 
 module.exports = {

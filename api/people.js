@@ -54,8 +54,7 @@ router.put('/:id', (req, res) => {
   peopleList[index] = people;
   res.json(people);
 })
-
-router.delete('/:id', (req, res) => {
+function deletePerson(req, res){
   const id = req.params.id;
   const index = peopleList.findIndex(p => p.id == id);
   if (checkBoletos(id, 1)) {
@@ -64,7 +63,8 @@ router.delete('/:id', (req, res) => {
     peopleList.splice(index, 1);
     res.json(peopleList);
   }
-})
+}
+router.delete('/:id', deletePerson);
 
 module.exports = {
   router,

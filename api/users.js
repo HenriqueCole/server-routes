@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const checkBoletos = require('./checkBoletos');
+
 
 const usersList = [
   {
@@ -58,7 +60,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const index = usersList.findIndex(p => p.id == id);
-  if (checkBoletos(id, 2)) {
+  if (checkBoletos.checkBoletos(id, 2)) {
     res.status(400).send('You can not delete this user because he has a boleto');
   } else {
     usersList.splice(index, 1);

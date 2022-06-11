@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { checkBoletos } = require('./boletos');
+const checkBoletos = require('./checkBoletos');
 
 const peopleList = [
   {
@@ -8,7 +8,6 @@ const peopleList = [
     'name': 'Henrique',
     'cpf': '123.456.789-10',
   },
-
   {
     'id': 2,
     'name': 'Vinicius',
@@ -54,17 +53,17 @@ router.put('/:id', (req, res) => {
   peopleList[index] = people;
   res.json(people);
 })
-function deletePerson(req, res){
+
+router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const index = peopleList.findIndex(p => p.id == id);
-  if (checkBoletos(id, 1)) {
+  if (checkBoletos.checkBoletos(id, 1)) {
     res.status(400).send('You can not delete this person because he has a boleto');
   } else {
     peopleList.splice(index, 1);
     res.json(peopleList);
   }
-}
-router.delete('/:id', deletePerson);
+})
 
 module.exports = {
   router,

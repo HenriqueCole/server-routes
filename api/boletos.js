@@ -1,6 +1,6 @@
 const express = require('express');
-const people = require('./people');
-const user = require('./users');
+// const people = require('./people');
+// const user = require('./users');
 const router = express.Router();
 
 boletoList = [
@@ -22,8 +22,9 @@ boletoList = [
   }
 ]
 
-function checkBoletos(id, type) {
-  return type == 1 ? boletoList.find(p => p.id_person == id) : boletoList.find(p => p.id_user == id);
+
+function searchBoletos() {
+  return boletoList;
 }
 
 router.get('/', (req, res) =>{
@@ -47,11 +48,14 @@ router.get('/person/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   const boleto = req.body;
-  if (!people.searchPeopleById(boleto.id_person)) {
+
+  if(!boleto.id_person){
     res.status(400).send('Person not found');
-  } else if (!user.searchUsersById(boleto.id_user)) {
+  } else 
+  if(!boleto.id_user){
     res.status(400).send('User not found');
-  } else if (boleto.value <= 0) {
+  } else 
+  if(boleto.value <= 0){
     res.status(400).send('Value must be greater than 0');
   } else {
     boleto.id = boletoList.length + 1;
@@ -71,5 +75,5 @@ router.put('/:id', (req, res) => {
 
 module.exports = {
   router,
-  checkBoletos
+  searchBoletos
 }

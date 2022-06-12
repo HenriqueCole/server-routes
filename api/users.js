@@ -1,36 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const checkBoletos = require('./checkBoletos');
-
-
-const usersList = [
-  {
-    'id': 1,
-    'name': 'User 1',
-    'passwd': '123',
-  },
-
-  {
-    'id': 2,
-    'name': 'User 2',
-    'passwd': '312',
-  },
-
-  {
-    'id': 3,
-    'name': 'User 3',
-    'passwd': '456',
-  },
-
-];
-
-function searchUsers(){
-  return usersList;
-}
-
-function searchUsersById(id){
-  return usersList[id];
-}
+const { checkBoletos } = require('./Lists/boletoList');
+const { searchUsers, searchUsersById } = require('./Lists/userList');
 
 router.get('/', (req, res) => {
   res.send( searchUsers() );
@@ -38,33 +9,33 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const id = req.params.id;
-  const user = usersList.find(p => p.id == id);
+  const user = searchUsers().find(p => p.id == id);
   res.json(user)
 })
 
 router.post('/', (req, res) => {
   const user = req.body;
-  user.id = usersList.length + 1;
+  user.id = searchUsers().length + 1;
   { !user.name || !user.passwd ? res.status(400).send('You need to inform the name and the password') 
-  :  usersList.push(user), res.send(user) }
+  :  searchUsers().push(user), res.send(user) }
 })
 
 router.put('/:id', (req, res) => {
   const id = req.params.id;
   const users = req.body;
-  const index = usersList.findIndex(p => p.id == id);
-  usersList[index] = users;
+  const index = searchUsers().findIndex(p => p.id == id);
+  searchUsers()[index] = users;
   res.json(users);
 })
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
-  const index = usersList.findIndex(p => p.id == id);
-  if (checkBoletos.checkBoletos(id, 2)) {
+  const index = searchUsers().findIndex(p => p.id == id);
+  if (checkBoletos(id, 2)) {
     res.status(400).send('You can not delete this user because he has a boleto');
   } else {
-    usersList.splice(index, 1);
-    res.json(usersList);
+    searchUsers().splice(index, 1);
+    res.json(searchUsers());
   }
 })
 

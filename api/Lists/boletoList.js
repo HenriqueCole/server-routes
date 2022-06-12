@@ -1,5 +1,3 @@
-const boletos = require('../boletos');
-
 boletoList = [
   {
     id: 1,

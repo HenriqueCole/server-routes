@@ -16,11 +16,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/person/:id', (req, res) => {
   const id = req.params.id;
-  for (let i = 0; i < searchBoletos().length; i++) {
-    if (searchBoletos()[i].id_person == id) {
-      res.send(searchBoletos()[i]);
-    }
-  }
+  res.json(searchBoletos().filter(p => p.id_person == id));
 })
 
 router.post('/', (req, res) => {

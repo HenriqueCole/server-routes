@@ -1,1 +1,1 @@
-# server-routes
+# Server routes with JS
